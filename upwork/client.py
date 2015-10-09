@@ -292,7 +292,7 @@ class Client(object):
 
         if fmt == 'json':
             try:
-                result = json.loads(result)
+                result = json.loads(result.decode('utf-8'))
             except ValueError:
                 # Not a valid json string
                 logger.debug('Response is not a valid json string')

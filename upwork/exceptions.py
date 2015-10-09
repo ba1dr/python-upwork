@@ -3,7 +3,7 @@
 # (C) 2010-2015 Upwork
 
 import logging
-import urllib2
+import urllib3
 
 
 class BaseException(Exception):
@@ -22,7 +22,7 @@ class BaseException(Exception):
             ', '.join(map(unicode, args))))
 
 
-class BaseHttpException(urllib2.HTTPError, BaseException):
+class BaseHttpException(urllib3.exceptions.HTTPError, BaseException):
 
     def __init__(self, *args, **kwargs):
         self.upwork_debug(*args, **kwargs)
