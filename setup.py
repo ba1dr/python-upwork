@@ -32,7 +32,7 @@ def update_init(version):
     """Update version number in the ``upwork/__init__.py``.
 
     """
-    print 'Updating ``upwork/__init__.py`` to version "{0}"'.format(version)
+    print ('Updating ``upwork/__init__.py`` to version "{0}"'.format(version))
     # Update 'VERSION' variable in ``upwork/__init__.py``
     with open('upwork/__init__.py', 'r') as f:
         init_contents = f.read()
@@ -49,7 +49,7 @@ def update_init(version):
     with open('upwork/__init__.py', 'w') as f:
         f.write(new_init)
 
-    print 'OK'
+    print ('OK')
 
 
 class UpdateVersion(Command):
