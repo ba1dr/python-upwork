@@ -1,7 +1,12 @@
 # Python bindings to Upwork API
 # python-upwork version 0.5
 # (C) 2010-2015 Upwork
-import urllib.parse as urlparse
+try:
+    # Python2
+    import urlparse
+except ImportError:
+    # Python3
+    import urllib.parse as urlparse
 from .config import BASE_URL
 
 __all__ = ['Namespace', 'GdsNamespace']
@@ -29,7 +34,7 @@ class Namespace(object):
         return "{0}{1}v{2}/{3}".format(self.base_url,
                                        self.api_url, self.version, url)
 
-    #Proxied client's methods
+    # Proxied client's methods
     def get(self, url, data=None):
         return self.client.get(self.full_url(url), data)
 
