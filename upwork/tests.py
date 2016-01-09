@@ -25,7 +25,13 @@ from nose.tools import eq_, ok_
 from mock import Mock, patch
 import urlparse
 import urllib2
-import httplib
+
+try:
+    # Python2
+    import httplib
+except ImportError:
+    # Python3
+    import http.client as httplib
 
 try:
     import json

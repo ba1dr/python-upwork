@@ -4,7 +4,12 @@
 
 import logging
 import urllib3
-import httplib2
+try:
+    # Python2
+    import httplib
+except ImportError:
+    # Python3
+    import http.client as httplib
 
 from upwork.exceptions import HTTP400BadRequestError, HTTP401UnauthorizedError,\
     HTTP403ForbiddenError, HTTP404NotFoundError
@@ -34,21 +39,21 @@ def raise_http_error(url, response):
     formatted_msg = 'Code {0}: {1}'.format(upwork_error_code,
                                            upwork_error_message)
 
-    if status_code == httplib2.BAD_REQUEST:
+    if status_code == httplib.BAD_REQUEST:
         raise HTTP400BadRequestError(url, status_code, formatted_msg,
                                      headers, None)
-    elif status_code == httplib2.UNAUTHORIZED:
+    elif status_code == httplib.UNAUTHORIZED:
         raise HTTP401UnauthorizedError(url, status_code, formatted_msg,
                                        headers, None)
-    elif status_code == httplib2.FORBIDDEN:
+    elif status_code == httplib.FORBIDDEN:
         raise HTTP403ForbiddenError(url, status_code, formatted_msg,
                                     headers, None)
-    elif status_code == httplib2.NOT_FOUND:
+    elif status_code == httplib.NOT_FOUND:
         raise HTTP404NotFoundError(url, status_code, formatted_msg,
                                    headers, None)
     else:
         error = urllib3.exceptions.HTTPError(url, status_code, formatted_msg,
-                                  headers, None)
+                                             headers, None)
         logger = logging.getLogger('python-upwork')
         logger.debug(str(error))
         raise error
