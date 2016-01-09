@@ -3,7 +3,12 @@
 # (C) 2010-2015 Upwork
 
 import time
-import urllib.parse as urlparse
+try:
+    # Python2
+    import urlparse
+except ImportError:
+    # Python3
+    import urllib.parse as urlparse
 import urllib
 import oauth2 as oauth
 import logging
