@@ -4,6 +4,12 @@
 
 import logging
 import urllib3
+try:
+    # Python2
+    unicode('test')
+except NameError:
+    # Python3
+    unicode = str
 
 
 class BaseException(Exception):
