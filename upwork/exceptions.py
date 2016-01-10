@@ -19,7 +19,7 @@ class BaseUpworkException(Exception):
 
     """
     def __init__(self, *args, **kwargs):
-        self._info = "{0} ; {1}".format(', '.join(args), ', '.join(kwargs.items()))
+        self._info = "{0} ; {1}".format(', '.join(args), ', '.join("%s: %s" % e for e in kwargs.items()))
         self.upwork_debug(*args, **kwargs)
 
     def __str__(self):
