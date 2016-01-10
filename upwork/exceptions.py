@@ -12,14 +12,24 @@ except NameError:
     unicode = str
 
 
-class BaseException(Exception):
+class BaseUpworkException(Exception):
     """Base exception class.
 
     Performs logging.
 
     """
     def __init__(self, *args, **kwargs):
+        self._info = "{0} ; {1}".format(', '.join(args), ', '.join(kwargs.items()))
         self.upwork_debug(*args, **kwargs)
+
+    def __str__(self):
+        return self._info
+
+    def __unicode__(self):
+        return self._info
+
+    def __repr__(self):
+        return "%s: %s" % (self.__class__.__name__, self._info)
 
     def upwork_debug(self, *args, **kwargs):
         logger = logging.getLogger('python-upwork')
@@ -28,10 +38,10 @@ class BaseException(Exception):
             ', '.join(map(unicode, args))))
 
 
-class BaseHttpException(urllib3.exceptions.HTTPError, BaseException):
+class BaseHttpException(urllib3.exceptions.HTTPError, BaseUpworkException):
 
     def __init__(self, *args, **kwargs):
-        self.upwork_debug(*args, **kwargs)
+        # self.upwork_debug(*args, **kwargs)
         super(BaseHttpException, self).__init__(*args, **kwargs)
 
 
